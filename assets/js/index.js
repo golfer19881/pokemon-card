@@ -45,7 +45,7 @@ let deck = [];
 let hand = [];
 
 function setup() {
-  createCanvas(800, 600);
+  createCanvas(980, 1400);
 
   for (let i = 0; i < 60; i++) {
     deck.push({
