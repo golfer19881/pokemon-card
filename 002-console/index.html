@@ -314,6 +314,8 @@ function fetchData() {
           // 8枚目以降の画像の場合、画像を切り替える関数を適用
           if (index >= 7) {
               const imgElement = li.querySelector('img');  // 画像要素を取得
+              // 元の画像のURLを保存
+              $(imgElement).data('originalSrc', imgElement.src);
               switchImage(imgElement);  // switchImage関数に画像要素を渡す
           }
       });
@@ -331,6 +333,30 @@ function fetchData() {
       }
     })
 };
+
+
+$(document).ready(function() {
+    // Make the new image draggable
+    $( "img" ).draggable();
+
+    // Switch image when clicked
+    $(document).on('click', 'img', function() {
+        // Save the original src in a data attribute if not already saved
+        if (!$(this).data('originalSrc')) {
+            $(this).data('originalSrc', $(this).attr('src'));
+        }
+
+        // If the image is the back of the card, switch to the original image
+        if ($(this).attr('src') === '/assets/images/card_back.jpeg') {
+            $(this).attr('src', $(this).data('originalSrc'));
+        } else {
+            // If the image is not the back of the card, switch to the back of the card
+            $(this).attr('src', '/assets/images/card_back.jpeg');
+        }
+    });
+});
+
+
 </script>
 
 
