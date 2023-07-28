@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    img{
+      cursor: pointer;
+      width: 80px;
+    }
+    ul.card-list-precedence{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    ul.card-list-side-six li,
+    ul.card-list-side-deck li,
+    ul.card-list-trash li,
+    ul.card-list-bench li,
+    ul.card-list-side-lost li {
+      position: absolute;
+    }
+    /*============ 山札 ============*/
+    ul.card-list-side-deck{
+      position: absolute;
+      right: 24px;
+      bottom: 180px;
+      width: 92px;
+      height: 100px;
+    }
+    ul.card-list-side-deck li{
+      position: relative; /* 絶対ではなく相対位置を指定 */
+      display: inline-block; /* 要素を横並びにする */
+      left: 20px;
+    }
+
+    /*============ ベンチ ============*/
+    ul.card-list-bench{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      position: absolute;
+      left: 35%;
+      bottom: 118px; /* Change this value to adjust the vertical position from the top */
+      width: 480px;
+      height: 80px;
+    }
+    ul.card-list-bench li{
+      position: relative; /* 絶対ではなく相対位置を指定 */
+      display: inline-block; /* 要素を横並びにする */
+      width: 80px; /* 必要に応じて調整 */
+    }
+
+    /*============ サイドデッキ ============*/
+    ul.card-list-side-six {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      position: absolute;
+      left: 24px;
+      bottom: 180px; /* Change this value to adjust the vertical position from the top */
+      width: 160px;
+      height: 270px;
+    }
+    ul.card-list-side-six li{
+      position: relative; /* 絶対ではなく相対位置を指定 */
+      display: inline-block; /* 要素を横並びにする */
+      width: 80px; /* 必要に応じて調整 */
+    }
+    
+    /*============ トラッシュデッキ ============*/
+    ul.card-list-trash {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      position: absolute;
+      right: 24px;
+      bottom: 10px; /* Change this value to adjust the vertical position from the top */
+      width: 92px;
+      height: 100px;
+    }
+    ul.card-list-trash li{
+      position: relative; /* 絶対ではなく相対位置を指定 */
+      display: inline-block; /* 要素を横並びにする */
+      width: 80px; /* 必要に応じて調整 */
+    }
+
+    /*============ バトル場 ============*/
+    ul.card-list-battle{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      position: absolute;
+      left: 50%;
+      bottom: 30%; /* Change this value to adjust the vertical position from the top */
+      width: 80px;
+      height: 90px;
+    }
+    ul.card-list-battle li{
+      display: inline-block; /* 要素を横並びにする */
+      width: 80px; /* 必要に応じて調整 */
+    }
+
+    /*============ 手札 ============*/
+    ul.card-list-precedence{
+      display: inline-block;
+      position: absolute;
+      left: 204px;
+      bottom: 120px; /* Change this value to adjust the vertical position from the top */
+    }
+    ul.card-list-precedence li{
+      display: inline-block; /* 要素を横並びにする */
+      position: relative;
+      width: 80px; /* 必要に応じて調整 */
+    }
+
+    /*============ ロストデッキ ============*/
+    ul.card-list-side-lost{
+      position: absolute;
+      left: 24px;
+      bottom: 10px;
+      width: 80px;
+      height: 100px;
+    }
+    ul.card-list-side-lost li{
+      position: relative; /* 絶対ではなく相対位置を指定 */
+      display: inline-block; /* 要素を横並びにする */
+      width: 80px; /* 必要に応じて調整 */
+    }
+    /*============ 文字 ============*/
+    ul.card-list-side-lost p,
+    ul.card-list-precedence p,
+    ul.card-list-trash p,
+    ul.card-list-battle p,
+    ul.card-list-side-six p,
+    ul.card-list-side-deck p,
+    ul.card-list-bench p
+    {
+      font-size: 10px;
+      line-height: 1.6;
+    }
+    ul.card-list-side-lost p,
+    ul.card-list-precedence p,
+    ul.card-list-trash p,
+    ul.card-list-battle p,
+    ul.card-list-side-deck p,
+    ul.card-list-bench p,
+    ul.card-list-side-six p{
+      position: absolute;
+      top: -32px;
+    }
+
+    ul.card-list-precedence li img,
+    ul.card-list-side-six li img,
+    ul.card-list-trash li img,
+    ul.card-list-side-six img,
+    ul.card-list-side-deck li img,
+    ul.card-list-battle li img,
+    ul.card-list-side-lost li img {
+      z-index: 1;
+      width: 60px;
+      cursor: move;
+    }
+    /*============ レイアウト ============*/
+    .layout{
+      border-radius: 4px;
+      background: #fff;
+      padding: 4px 16px 8px 16px;
+      background: #efefef;
+    }
+    ul li img{
+      width: 80px;
+    }
+  </style>
+<!-- ========================================
+  画像を移動するscript
+======================================== -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+  <h2>Element Value</h2>
+  <p>xxD884-QCNkXG-8cc84c</p>
+  <p>Enter deck ID:</p>
+
+  <input type="text" id="deckID" name="deckID">
+  <button id="generate" onclick="fetchData()">Fetch Data</button>
+  <p id="demo"></p>
+  <!-- 手札-->
+  <ul class="card-list-precedence">
+  </ul>
+  <ul class="card-list-trash layout">
+    <p>トラッシュ</p>
+  </ul>
+  <ul class="card-list-side-six layout">
+    <p>サイド</p>
+  </ul>
+  <ul class="card-list-bench layout">
+    <p>ベンチ</p>
+  </ul>
+  <ul class="card-list-battle layout">
+    <p>バトル場</p>
+  </ul>
+  <ul class="card-list-side-deck layout">
+    <p>山札</p>
+  </ul>
+  <ul class="card-list-side-lost layout">
+    <p>ロスト</p>
+  </ul>
+
+
+<!-- ========================================
+  デッキコードから取得した60枚のカードをランダムで並べるscript
+======================================== -->
+<script>
+// 配列をシャッフルする関数
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];  // array[i]とarray[j]を交換
+  }
+}
+
+function fetchData() {
+  // 1. データのフェッチ
+  const deckID = document.getElementById("deckID").value;
+  fetch(`https://www.pokemon-card.com/deck/confirm.html/deckID/${deckID}`)
+    .then(response => response.text())
+    .then(data => {
+      // 2. 必要な情報のパースと抽出
+      const parser = new DOMParser();
+      const htmlDocument = parser.parseFromString(data, "text/html");
+
+      // 必要な要素を抽出
+      const deck_pke = htmlDocument.querySelector("#deck_pke");
+      const deck_gds = htmlDocument.querySelector("#deck_gds");
+      const deck_tool = htmlDocument.querySelector("#deck_tool");
+      const deck_sup = htmlDocument.querySelector("#deck_sup");
+      const deck_sta = htmlDocument.querySelector("#deck_sta");
+      const deck_ene = htmlDocument.querySelector("#deck_ene");
+      const deck_ajs = htmlDocument.querySelector("#deck_ajs");
+
+      const ids = [deck_pke, deck_gds, deck_tool, deck_sup, deck_sta, deck_ene, deck_ajs];
+
+      const liElements = [];  // li要素を保存する新しい配列
+
+      ids.forEach((element, index) => {
+        if (element) {
+          const value = element.value;
+
+          let i = 0;
+          let count = 1;
+          while (i < value.length) {
+            const fiveChars = value.slice(i, Math.min(i + 5, value.length));
+            const singleChar = value[Math.min(i + 6, value.length)];
+
+            const idNumber = `set-${String(index + 1).padStart(3, '0')}-${String(count).padStart(3, '0')}-number`;
+            const idSheets = `set-${String(index + 1).padStart(3, '0')}-${String(count).padStart(3, '0')}-sheets`;
+
+            // 3. 必要なDOM要素（liとimg）の作成
+            const newLi = document.createElement('li');
+            const newImg = document.createElement('img');
+
+            newImg.id = idNumber;
+            newImg.src = 'assets/images/' + fiveChars + '.jpeg';  // .jpegに変更
+            newImg.draggable = true;  // 画像をドラッグ可能に設定
+            newImg.style.position = 'absolute';  // 画像の位置を絶対位置に設定
+            newImg.style.left = '0px'; // 初期の左位置を追加
+            newImg.style.top = '0px'; // 初期の上位置を追加
+            newLi.appendChild(newImg);
+
+            const newP = document.createElement('p');
+            newP.id = idSheets;
+            newLi.appendChild(newP);
+
+            liElements.push(newLi);
+
+            const sheets = parseInt(singleChar, 10);
+            if (!isNaN(sheets)) {
+              for (let j = 1; j < sheets; j++) {
+                const clone = newLi.cloneNode(true);
+                clone.querySelector('img').id = `${idNumber}-clone-${j}`;
+                clone.querySelector('p').id = `${idSheets}-clone-${j}`;
+                liElements.push(clone);
+              }
+            }
+
+            count += 1;
+            i += 10;
+          }
+        } else {
+          console.error("Element not found");
+        }
+      });
+
+      // 4. 配列をシャッフル
+      shuffleArray(liElements);
+
+      // 5. li要素をDOMに追加
+      const cardListPrecedence = document.querySelector('.card-list-precedence');
+      const cardListSideDeck = document.querySelector('.card-list-side-deck');
+
+      // 先頭の7枚を.card-list-precedenceに、残りを.card-list-side-deckに追加
+      liElements.forEach((li, index) => {
+          if (index < 7) {
+              cardListPrecedence.appendChild(li);
+          } else {
+              cardListSideDeck.appendChild(li);
+          }
+
+          // 8枚目以降の画像の場合、画像を切り替える関数を適用
+          if (index >= 7) {
+              const imgElement = li.querySelector('img');  // 画像要素を取得
+              switchImage(imgElement);  // switchImage関数に画像要素を渡す
+          }
+      });
+
+      // Make the new image draggable
+      $( "img" ).draggable();
+
+      function switchImage(imgElement) {
+
+      // バックアップを取る
+      const originalSrc = imgElement.src;
+
+      // カードの裏面を表示
+      imgElement.src = '/assets/images/card_back.jpeg';
+      }
+    })
+};
+</script>
+
+
+
+
+
+</body>
+</html>
