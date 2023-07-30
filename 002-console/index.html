@@ -6,6 +6,50 @@
       cursor: pointer;
       width: 80px;
     }
+    .fetch{
+      background: rgb(199, 199, 199);
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+    .fetch-inner{
+      background: #fff;
+      padding: 24px;
+      width: 50Vw;
+      height: 50nw;
+      border-radius: 8px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #deckID{
+      padding: 8px 8px;
+    }
+    #generate {
+      display: inline-block;
+      padding: 8px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    #generate:hover {
+      background-color: #0056b3;
+    }
+
+    #generate:active {
+      background-color: #003d80;
+    }
+
     ul.card-list-precedence{
       display: flex;
       flex-direction: column;
@@ -181,14 +225,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 </head>
 <body>
-  <h2>Element Value</h2>
-  <p>xxD884-QCNkXG-8cc84c</p>
-  <p>Enter deck ID:</p>
+  <section class="fetch">
+    <div class="fetch-inner">
+      <h2>ポケカ1人回し</h2>
+      <p>xxD884-QCNkXG-8cc84c</p>
+      <p>デッキコードを入力してください。</p>
+      <input type="text" id="deckID" name="deckID">
+      <button id="generate" onclick="fetchData()">開始する</button><br>
+      <small>※デッキコードが誤っている場合、カードは表示されません。</small>
+    </div>
+  </section>
 
-  <input type="text" id="deckID" name="deckID">
-  <button id="generate" onclick="fetchData()">Fetch Data</button>
+
   <p id="demo"></p>
   <!-- 手札-->
   <ul class="card-list-precedence">
@@ -212,6 +263,19 @@
     <p>ロスト</p>
   </ul>
 
+
+
+<!-- ========================================
+  クリックするとポップアップが消えるscript
+======================================== -->
+<script>
+  document.getElementById("generate").addEventListener("click", function() {
+  var elements = document.getElementsByClassName("fetch");
+  for(var i = 0; i < elements.length; i++){
+    elements[i].style.display = "none";
+  }
+});
+</script>
 
 <!-- ========================================
   デッキコードから取得した60枚のカードをランダムで並べるscript
