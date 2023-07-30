@@ -8,6 +8,9 @@
   <meta name="description" content="">
   <title></title>
   <style>
+    body{
+      font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    }
     img{
       cursor: pointer;
       width: 80px;
@@ -24,16 +27,19 @@
     .fetch-inner{
       background: #fff;
       padding: 24px;
-      width: 50Vw;
-      height: 50nw;
+      width: 75vw;
+      height: 50vw;
       border-radius: 8px;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
-    #deckID{
-      padding: 8px 8px;
+    .deckID-css{
+      padding: 10px 8px;
+      border-radius: 8px;
+      border: 1px solid grey;
+      margin-right: 4px;
     }
     #generate {
       display: inline-block;
@@ -236,10 +242,9 @@
 <body>
   <section class="fetch">
     <div class="fetch-inner">
-      <h2>ポケカ1人回し</h2>
-      <p>xxD884-QCNkXG-8cc84c</p>
+      <h2>ポケカ1人回し | xxD884-QCNkXG-8cc84c</h2>
       <p>デッキコードを入力してください。</p>
-      <input type="text" id="deckID" name="deckID">
+      <input type="text" class="deckID-css" id="deckID" name="deckID">
       <button id="generate" onclick="fetchData()">開始する</button><br>
       <small>※デッキコードが誤っている場合、カードは表示されません。</small>
     </div>
