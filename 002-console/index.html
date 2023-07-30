@@ -36,12 +36,21 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      text-align: center;
     }
     .deckID-css{
       padding: 10px 8px;
       border-radius: 8px;
       border: 1px solid grey;
       margin-right: 4px;
+    }
+    .small{
+      margin: 8px 0 0 0;
+      padding: 0;
+    }
+    .small li{
+      font-size: 12px;
+      list-style-type: none;
     }
     #generate {
       display: inline-block;
@@ -248,7 +257,10 @@
       <p>デッキコードを入力してください。</p>
       <input type="text" class="deckID-css" id="deckID" name="deckID">
       <button id="generate" onclick="fetchData()">開始する</button><br>
-      <small>※デッキコードが誤っている場合、カードは表示されません。</small>
+      <ul class="small">
+        <li>※デッキコードが誤っている場合、カードは表示されません。</li>
+        <li>※ネットワーク不良により、カードが表示されないことがあります。</li>
+      </ul>
     </div>
   </section>
 
