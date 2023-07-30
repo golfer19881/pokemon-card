@@ -302,11 +302,14 @@ function fetchData() {
       // 5. li要素をDOMに追加
       const cardListPrecedence = document.querySelector('.card-list-precedence');
       const cardListSideDeck = document.querySelector('.card-list-side-deck');
+      const cardListSideSix = document.querySelector('.card-list-side-six');  // 新しく追加する要素の取得
 
-      // 先頭の7枚を.card-list-precedenceに、残りを.card-list-side-deckに追加
+      // 先頭の7枚を.card-list-precedenceに、次の6枚を.card-list-side-sixに、残りを.card-list-side-deckに追加
       liElements.forEach((li, index) => {
           if (index < 7) {
               cardListPrecedence.appendChild(li);
+          } else if (index >= 7 && index < 13) {  // 8枚目から13枚目までを.card-list-side-sixに追加
+              cardListSideSix.appendChild(li);
           } else {
               cardListSideDeck.appendChild(li);
           }
@@ -335,6 +338,7 @@ function fetchData() {
 };
 
 
+// 画像を移動するjQuery
 $(document).ready(function() {
     // Make the new image draggable
     $( "img" ).draggable();
