@@ -30,7 +30,7 @@
     .fetch-inner{
       background: #fff;
       padding: 24px;
-      width: 75vw;
+      width: 50vw;
       border-radius: 8px;
       position: fixed;
       top: 50%;
@@ -43,6 +43,12 @@
       border-radius: 8px;
       border: 1px solid grey;
       margin-right: 4px;
+      width: 50%;
+    }
+    @media (max-width: 1020px) and (min-width: 768px) { 
+        .deckID-css{
+        width: 75%;
+      }
     }
     .small{
       margin: 8px 0 0 0;
@@ -51,6 +57,7 @@
     .small li{
       font-size: 12px;
       list-style-type: none;
+      text-align: left;
     }
     #generate {
       display: inline-block;
