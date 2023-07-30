@@ -120,7 +120,7 @@
     ul.card-list-side-deck{
       position: absolute;
       right: 24px;
-      bottom: 180px;
+      bottom: 148px;
       width: 92px;
       height: 100px;
     }
@@ -154,14 +154,14 @@
       flex-wrap: wrap;
       position: absolute;
       left: 24px;
-      bottom: 180px; /* Change this value to adjust the vertical position from the top */
+      bottom: 148px; /* Change this value to adjust the vertical position from the top */
       width: 160px;
       height: 270px;
     }
     ul.card-list-side-six li{
       position: relative; /* 絶対ではなく相対位置を指定 */
       display: inline-block; /* 要素を横並びにする */
-      width: 80px; /* 必要に応じて調整 */
+      width: 64px; /* 必要に応じて調整 */
     }
     
     /*============ トラッシュデッキ ============*/
@@ -171,7 +171,7 @@
       flex-wrap: wrap;
       position: absolute;
       right: 24px;
-      bottom: 10px; /* Change this value to adjust the vertical position from the top */
+      bottom: 0px; /* Change this value to adjust the vertical position from the top */
       width: 92px;
       height: 100px;
     }
@@ -202,7 +202,7 @@
       display: inline-block;
       position: absolute;
       left: 204px;
-      bottom: 120px; /* Change this value to adjust the vertical position from the top */
+      bottom: 100px; /* Change this value to adjust the vertical position from the top */
     }
     ul.card-list-precedence li{
       display: inline-block; /* 要素を横並びにする */
@@ -214,7 +214,7 @@
     ul.card-list-side-lost{
       position: absolute;
       left: 24px;
-      bottom: 10px;
+      bottom: 0px;
       width: 80px;
       height: 100px;
     }
@@ -281,23 +281,20 @@
   <section class="fetch">
     <div class="fetch-inner">
       <h2>ポケカ1人回し | xxD884-QCNkXG-8cc84c</h2>
-      <p>デッキコードを入力してください。</p>
-      <input type="text" class="deckID-css" id="deckID" name="deckID">
+      <input type="text" class="deckID-css" id="deckID" name="deckID" placeholder="デッキコードを入力ください">
       <button id="generate" onclick="fetchData()">開始する</button><br>
       <ul class="small">
         <li>※デッキコードが誤っている場合、カードは表示されません。</li>
-        <li>※ネットワーク不良により、カードが表示されないことがあります。</li>
+        <li>※ネットワーク環境により時間がかかる、もしくはカードが表示されない場合があります。</li>
       </ul>
-      <div class="howto">
+      <!-- <div class="howto">
         <h4>使い方</h4>
         <ol class="small">
           <li>デッキコードを入力</li>
-          <li>※ネットワーク不良により、カードが表示されないことがあります。</li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </section>
-
 
   <p id="demo"></p>
   <!-- 手札-->
@@ -323,18 +320,26 @@
   </ul>
 
 
-
 <!-- ========================================
   クリックするとポップアップが消えるscript
 ======================================== -->
 <script>
   document.getElementById("generate").addEventListener("click", function() {
-  var elements = document.getElementsByClassName("fetch");
-  for(var i = 0; i < elements.length; i++){
-    elements[i].style.display = "none";
-  }
-});
+    const deckID = document.getElementById("deckID").value;
+  
+    // デッキIDが入力されていない場合にエラーメッセージを表示
+    if (!deckID) {
+      alert("デッキIDが入力されていません。デッキIDを入力してから再度試してください。");
+      return;  // 処理を終了
+    }
+  
+    var elements = document.getElementsByClassName("fetch");
+    for(var i = 0; i < elements.length; i++){
+      elements[i].style.display = "none";
+    }
+  });
 </script>
+  
 
 <!-- ========================================
   デッキコードから取得した60枚のカードをランダムで並べるscript
