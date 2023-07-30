@@ -48,6 +48,7 @@ img{
 .small{
   margin: 16px 0 0 0;
   padding: 0;
+  color: #666;
 }
 .small li{
   font-size: 12px;
